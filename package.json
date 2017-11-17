@@ -15,7 +15,8 @@
   "dependencies": {
     "prop-types": "^15.6.0",
     "react": "16.0.0",
-    "react-native": "0.50.3"
+    "react-native": "0.50.3",
+    "styled-components": "^2.2.3"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.2",
@@ -37,7 +38,10 @@
     "react-test-renderer": "16.0.0"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "moduleFileExtensions": ["js"],
+    "moduleDirectories": ["node_modules"],
+    "testRegex": "(src/|).*\\.test\\.js$"
   },
   "lint-staged": {
     "*.js": [
