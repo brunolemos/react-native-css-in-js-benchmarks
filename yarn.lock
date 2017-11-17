@@ -5075,6 +5075,10 @@ unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
 
+usertiming@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/usertiming/-/usertiming-0.1.8.tgz#35378e7f41a248d40e658d05f80423469a7b0650"
+
 util-deprecate@1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"

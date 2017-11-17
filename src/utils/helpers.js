@@ -47,8 +47,8 @@ export function canUsePerformanceTool(alert = false) {
   if (typeof performance === 'undefined') {
     if (alert)
       Alert.alert(
-        'Requirement',
-        'Enable Remote JS Debugging to be able to run the benchmarks.',
+        'Missing UserTiming API',
+        'Performance tools not available. Please try enabling Remote JS Debugging to be able to run the benchmarks.',
       )
     return false
   }
