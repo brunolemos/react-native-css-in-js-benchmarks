@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, ViewPropTypes } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
@@ -52,7 +52,7 @@ MessageRow.propTypes = {
   bold: PropTypes.bool,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   color: PropTypes.string,
-  containerStyle: View.propTypes.style,
+  containerStyle: ViewPropTypes.style,
   textStyle: Text.propTypes.style,
 }
 
