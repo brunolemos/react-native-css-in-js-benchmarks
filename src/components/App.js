@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {
-  StatusBar,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -21,7 +21,7 @@ import StyledComponentsSimpleTable from './benchmarks/styled-components/simple'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight || 21,
+    paddingTop: Platform.select({ android: 0, ios: 21 }),
     backgroundColor: '#FFFFFF',
   },
   innerContainer: {
