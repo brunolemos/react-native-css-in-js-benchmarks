@@ -20,7 +20,7 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js"]
+        "extensions": [".js", ".android.js", ".ios.js"]
       }
     }
   },
@@ -48,7 +48,7 @@
     "react/default-props-match-prop-types": "off",
     "react-native/no-unused-styles": "error",
     "react-native/split-platform-components": "error",
-    "react-native/no-color-literals": "off",
+    "react-native/no-color-literals": "warn",
     "no-plusplus": "off",
     "prettier/prettier": [
       "error",

@@ -24,9 +24,12 @@ const Text = styled.Text`
 const TableComponent = ({ table, ...props }) => (
   <Table removeClippedSubviews={false} {...props}>
     {table.map((row, rowIndex) => (
-      <Row key={rowIndex}>
+      <Row key={`row-${rowIndex}`}>
         {row.map((value, columnIndex) => (
-          <Cell key={`${rowIndex}${columnIndex}`} opacity={parseFloat(value)}>
+          <Cell
+            key={`row-${rowIndex}-column-${columnIndex}`}
+            opacity={parseFloat(value)}
+          >
             <Text numberOfLines={1}>{toPercent(value)}</Text>
           </Cell>
         ))}
@@ -35,6 +38,7 @@ const TableComponent = ({ table, ...props }) => (
   </Table>
 )
 
+TableComponent.key = 'styled-components-simple-table'
 TableComponent.title = 'Styled Components (Simple)'
 
 TableComponent.propTypes = {

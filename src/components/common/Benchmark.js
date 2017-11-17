@@ -68,7 +68,7 @@ export default class Benchmark extends React.PureComponent {
 
   mounted = false
 
-  runRenderTest = async (runCount = 10) => {
+  runRenderTest = async (runCount = 1) => {
     if (!canUsePerformanceTool(true)) {
       if (this.props.onGetRenderTime) this.props.onGetRenderTime(0)
       return 0

@@ -1,28 +1,34 @@
-import PropTypes from 'prop-types'
 import React from 'react'
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { ActivityIndicator, Platform, StyleSheet, View } from 'react-native'
 
+import * as colors from '../utils/colors'
 import { getTableSize, getUniqueSize } from '../utils/helpers'
 
 import Benchmark from './common/Benchmark'
+import Button from './common/Button'
 import MessageRow from './common/MessageRow'
+import Picker from './common/Picker'
 
 // benchmarks
-// import StyledComponentsDecoupleCellTable from './benchmarks/styled-components/decouple-cell'
-// import StyledComponentsInlineTable from './benchmarks/styled-components/inline'
+import StyledComponentsDecoupledCellTable from './benchmarks/styled-components/decoupled-cell'
+import StyledComponentsInlineTable from './benchmarks/styled-components/inline'
 import StyledComponentsSimpleTable from './benchmarks/styled-components/simple'
+
+const benchmarks = [
+  StyledComponentsDecoupledCellTable,
+  StyledComponentsInlineTable,
+  StyledComponentsSimpleTable,
+].map(benchmark => ({
+  key: benchmark.key,
+  label: benchmark.title,
+  value: { TableComponent: benchmark },
+}))
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Platform.select({ android: 0, ios: 21 }),
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.white,
   },
   innerContainer: {
     flex: 1,
@@ -30,31 +36,29 @@ const styles = StyleSheet.create({
   tableContainer: {
     flex: 1,
   },
+  tableLoadingContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   table: {},
-  buttonContainer: {
+  buttonsContainer: {
     padding: 10,
-  },
-  button: {
-    backgroundColor: '#7CB342',
-    padding: 14,
-    borderRadius: 6,
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    textAlign: 'center',
   },
 })
 
 export default class App extends React.PureComponent {
-  static propTypes = {
-    TableComponent: PropTypes.func,
-  }
-
   state = {
-    TableComponent: this.props.TableComponent || StyledComponentsSimpleTable,
+    TableComponent: null,
+    loading: false,
     mountTime: null,
     renderTime: null,
+    running: false,
     table: [],
+  }
+
+  componentDidMount() {
+    if (this.picker) this.picker.open()
   }
 
   getBenchmarkRef = benchmark => {
@@ -62,67 +66,131 @@ export default class App extends React.PureComponent {
     return benchmark
   }
 
+  getPickerRef = picker => {
+    if (picker) this.picker = picker
+    return picker
+  }
+
   benchmark = null
+  picker = null
 
   handleGenerateTable = table => this.setState({ table })
-  handleGetMountTime = mountTime => this.setState({ mountTime })
-  handleGetRenderTime = renderTime => this.setState({ renderTime })
 
-  handlePress = () => {
-    this.setState({ renderTime: null }, () => {
-      this.benchmark.generateNewTable(() => {
+  handleGetMountTime = mountTime => this.setState({ mountTime, running: false })
+
+  handleGetRenderTime = renderTime =>
+    this.setState({ renderTime, running: false })
+
+  handleRunButtonPress = () => {
+    this.setState({ running: true }, () => {
+      setTimeout(() => {
         this.benchmark.runRenderTest()
-      })
+      }, 0)
     })
   }
 
+  handleChangeLibButtonPress = () => {
+    this.picker.open()
+  }
+
+  handleLibChange = lib => {
+    const isValid = Boolean(lib && lib.TableComponent)
+
+    this.setState(
+      {
+        TableComponent: null,
+        loading: isValid,
+        mountTime: null,
+        renderTime: null,
+      },
+      () => {
+        if (!isValid) return
+
+        setTimeout(() => {
+          this.setState({ TableComponent: lib.TableComponent, loading: false })
+        }, 0)
+      },
+    )
+  }
+
   render() {
-    const { TableComponent, mountTime, renderTime, table } = this.state
+    const {
+      TableComponent,
+      loading,
+      mountTime,
+      renderTime,
+      running,
+      table,
+    } = this.state
 
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <MessageRow backgroundColor="#FFFFFF" bold color="#000000">
-            {(TableComponent.title || 'No Title').toUpperCase()}
+          <MessageRow backgroundColor={colors.white} bold color={colors.black}>
+            {(TableComponent
+              ? TableComponent.title
+              : 'CSS in JS Benchmarks'
+            ).toUpperCase()}
           </MessageRow>
 
-          <MessageRow
-            backgroundColor="#ECEFF1"
-            color="#78909C"
-          >{`${getUniqueSize(table)} unique cells in ${getTableSize(
-            table,
-          )}`}</MessageRow>
+          {TableComponent && (
+            <MessageRow>{`${getUniqueSize(
+              table,
+            )} unique cells in ${getTableSize(table)}`}</MessageRow>
+          )}
 
           <View style={styles.tableContainer}>
-            <Benchmark
-              ref={this.getBenchmarkRef}
-              TableComponent={TableComponent}
-              onGenerateTable={this.handleGenerateTable}
-              onGetMountTime={this.handleGetMountTime}
-              onGetRenderTime={this.handleGetRenderTime}
-              style={styles.table}
-            />
+            {loading ? (
+              <View style={styles.tableLoadingContainer}>
+                <ActivityIndicator color={colors.purple} />
+              </View>
+            ) : !TableComponent ? null : (
+              <Benchmark
+                ref={this.getBenchmarkRef}
+                key={`benchmark-${TableComponent.key}`}
+                TableComponent={TableComponent}
+                onGenerateTable={this.handleGenerateTable}
+                onGetMountTime={this.handleGetMountTime}
+                onGetRenderTime={this.handleGetRenderTime}
+                style={styles.table}
+              />
+            )}
           </View>
 
           <MessageRow containerStyle={{ flexDirection: 'row' }}>
             <MessageRow containerStyle={{ flex: 1 }}>{`Mount time: ${(
               mountTime || 0
             ).toFixed(2)}ms`}</MessageRow>
-            <MessageRow containerStyle={{ flex: 1 }}>{`Rerender time: ${
-              renderTime === null ? '...' : `${(renderTime || 0).toFixed(2)}ms`
-            }`}</MessageRow>
+
+            <MessageRow containerStyle={{ flex: 1 }}>{`Rerender time: ${`${(
+              renderTime || 0
+            ).toFixed(2)}ms`}`}</MessageRow>
           </MessageRow>
 
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              disabled={renderTime === null}
-              onPress={this.handlePress}
-              style={styles.button}
+          <View style={styles.buttonsContainer}>
+            <Button
+              containerStyle={{ marginBottom: 10 }}
+              disabled={!TableComponent}
+              loading={running}
+              onPress={this.handleRunButtonPress}
             >
-              <Text style={styles.buttonText}>
-                {renderTime === null ? 'Running...' : 'Run again'}
-              </Text>
-            </TouchableOpacity>
+              Run again
+            </Button>
+
+            {Platform.OS === 'ios' && (
+              <Button dark onPress={this.handleChangeLibButtonPress} outline>
+                {TableComponent
+                  ? 'Change CSS in JS lib'
+                  : 'Select CSS in JS lib'}
+              </Button>
+            )}
+
+            <Picker
+              ref={this.getPickerRef}
+              data={benchmarks}
+              initialSelectedKey={null}
+              onChange={this.handleLibChange}
+            />
           </View>
         </View>
       </View>

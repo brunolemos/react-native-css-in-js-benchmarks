@@ -23,10 +23,10 @@ const Text = styled.Text`
 const TableComponent = ({ table, ...props }) => (
   <Table removeClippedSubviews={false} {...props}>
     {table.map((row, rowIndex) => (
-      <Row key={rowIndex}>
+      <Row key={`row-${rowIndex}`}>
         {row.map((value, columnIndex) => (
           <Cell
-            key={`${rowIndex}${columnIndex}`}
+            key={`row-${rowIndex}-column-${columnIndex}`}
             style={{ backgroundColor: getCellColor(value) }}
           >
             <Text numberOfLines={1}>{toPercent(value)}</Text>
@@ -37,6 +37,7 @@ const TableComponent = ({ table, ...props }) => (
   </Table>
 )
 
+TableComponent.key = 'styled-components-inline-table'
 TableComponent.title = 'Styled Components (Inline)'
 
 TableComponent.propTypes = {

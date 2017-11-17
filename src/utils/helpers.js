@@ -11,7 +11,7 @@ export function toPercent(value, fractionDigits = 1) {
   return `${(value * 100).toFixed(fractionDigits).toString()}%`
 }
 
-export function generateTable(size = 500) {
+export function generateTable(size = 1000) {
   const columns = columnsThatFitDevice
   const rows = Math.ceil(size / columns)
 

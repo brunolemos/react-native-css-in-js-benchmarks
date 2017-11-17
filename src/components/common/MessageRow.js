@@ -2,14 +2,16 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { StyleSheet, Text, View, ViewPropTypes } from 'react-native'
 
+import * as colors from '../../utils/colors'
+
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
     paddingVertical: 4,
-    backgroundColor: '#ECEFF1',
+    backgroundColor: colors.greyBackground,
   },
   text: {
-    color: '#78909C',
+    color: colors.greyText,
     textAlign: 'center',
     fontSize: 12,
   },
