@@ -1,22 +1,50 @@
 {
-	"name": "react_native_css_in_js_benchmarks",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
-	},
-	"dependencies": {
-		"react": "16.0.0",
-		"react-native": "0.50.3"
-	},
-	"devDependencies": {
-		"babel-jest": "21.2.0",
-		"babel-preset-react-native": "4.0.0",
-		"jest": "21.2.1",
-		"react-test-renderer": "16.0.0"
-	},
-	"jest": {
-		"preset": "react-native"
-	}
+  "name": "react_native_css_in_js_benchmarks",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "format": "npm run lint:fix && npm run prettier",
+    "lint": "eslint '{.,src/**,__tests__/**}/*.js'",
+    "lint:fix": "npm run lint -- --fix",
+    "precommit": "lint-staged",
+    "prettier": "npm run prettier:options -- --write '{.,src/**,__tests__/**}/*.js'",
+    "prettier:options": "prettier --no-semi --trailing-comma all --single-quote",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.0",
+    "react": "16.0.0",
+    "react-native": "0.50.3"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.2",
+    "babel-jest": "21.2.0",
+    "babel-preset-react-native": "4.0.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.7.0",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.4.0",
+    "eslint-plugin-react-native": "^3.1.0",
+    "husky": "^0.14.3",
+    "jest": "21.2.1",
+    "lint-staged": "^5.0.0",
+    "prettier-eslint": "^8.2.2",
+    "react-test-renderer": "16.0.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run prettier:options -- --write",
+      "eslint --fix",
+      "git add",
+      "jest --bail --findRelatedTests"
+    ]
+  }
 }
