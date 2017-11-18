@@ -15,6 +15,7 @@ import FelaSimpleTable from './benchmarks/fela/simple'
 import GlamorousInlineTable from './benchmarks/glamorous/inline'
 import GlamorousPropsTable from './benchmarks/glamorous/props'
 import GlamorousSimpleTable from './benchmarks/glamorous/simple'
+import ReactNativeStyleSheetTable from './benchmarks/react-native/stylesheet'
 import StyledComponentsDecoupledCellTable from './benchmarks/styled-components/decoupled-cell'
 import StyledComponentsInlineTable from './benchmarks/styled-components/inline'
 import StyledComponentsSimpleTable from './benchmarks/styled-components/simple'
@@ -25,6 +26,7 @@ const benchmarks = [
   GlamorousInlineTable,
   GlamorousPropsTable,
   GlamorousSimpleTable,
+  ReactNativeStyleSheetTable,
   StyledComponentsDecoupledCellTable,
   StyledComponentsInlineTable,
   StyledComponentsSimpleTable,
