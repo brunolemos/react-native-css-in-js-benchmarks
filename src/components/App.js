@@ -10,6 +10,8 @@ import MessageRow from './common/MessageRow'
 import Picker from './common/Picker'
 
 // benchmarks
+import FelaInlineTable from './benchmarks/fela/inline'
+import FelaSimpleTable from './benchmarks/fela/simple'
 import GlamorousInlineTable from './benchmarks/glamorous/inline'
 import GlamorousPropsTable from './benchmarks/glamorous/props'
 import GlamorousSimpleTable from './benchmarks/glamorous/simple'
@@ -18,6 +20,8 @@ import StyledComponentsInlineTable from './benchmarks/styled-components/inline'
 import StyledComponentsSimpleTable from './benchmarks/styled-components/simple'
 
 const benchmarks = [
+  FelaInlineTable,
+  FelaSimpleTable,
   GlamorousInlineTable,
   GlamorousPropsTable,
   GlamorousSimpleTable,

@@ -13,9 +13,14 @@
     "test": "jest"
   },
   "dependencies": {
+    "fela": "^6.0.5",
+    "fela-native": "^5.0.13",
+    "fela-tools": "^5.0.13",
     "glamorous-native": "^1.2.0",
+    "hoist-non-react-statics": "^2.3.1",
     "prop-types": "^15.6.0",
     "react": "16.0.0",
+    "react-fela": "^6.1.0",
     "react-native": "0.50.3",
     "styled-components": "^2.2.3",
     "usertiming": "^0.1.8"
