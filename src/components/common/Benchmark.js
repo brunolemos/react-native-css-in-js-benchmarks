@@ -78,17 +78,17 @@ export default class Benchmark extends React.PureComponent {
 
     const durations = []
     for (let i = 0; i < runCount; i++) {
+      const suffix = `-${i}`
+
       // eslint-disable-next-line no-await-in-loop, no-loop-func
       const duration = await new Promise(resolve => {
         setTimeout(() => {
-          startMeasurement({ suffix: `${i}` })
+          startMeasurement({ suffix })
 
           this.generateNewTable(() => {
-            setTimeout(() => {
-              endMeasurement({ clear: true, suffix: `${i}` }, resolve)
-            }, 0)
+            endMeasurement({ clear: true, suffix }, resolve)
           })
-        })
+        }, 1)
       })
 
       durations.push(duration)

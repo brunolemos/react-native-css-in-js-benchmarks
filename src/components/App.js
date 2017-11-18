@@ -86,7 +86,7 @@ export default class App extends React.PureComponent {
 
   handleGenerateTable = table => this.setState({ table })
 
-  handleGetMountTime = mountTime => this.setState({ mountTime, running: false })
+  handleGetMountTime = mountTime => this.setState({ mountTime })
 
   handleGetRenderTime = renderTime =>
     this.setState({ renderTime, running: false })
@@ -112,6 +112,7 @@ export default class App extends React.PureComponent {
         loading: isValid,
         mountTime: null,
         renderTime: null,
+        running: isValid,
       },
       () => {
         if (!isValid) return
@@ -181,7 +182,7 @@ export default class App extends React.PureComponent {
             <Button
               containerStyle={{ marginBottom: 10 }}
               disabled={!TableComponent}
-              loading={running}
+              loading={running && !loading}
               onPress={this.handleRunButtonPress}
             >
               Run again

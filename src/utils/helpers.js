@@ -7,7 +7,8 @@ export function avg(arr) {
   return arr.reduce((total, n) => total + n, 0) / arr.length
 }
 
-export function toPercent(value, fractionDigits = 1) {
+const precision = 2
+export function toPercent(value, fractionDigits = precision) {
   return `${(value * 100).toFixed(fractionDigits).toString()}%`
 }
 
@@ -17,11 +18,11 @@ export function generateTable(size = 1000) {
 
   const table = []
   for (let row = 0; row < rows; row++) {
-    table[row] = ['1.000']
+    table[row] = ['1.0000']
     for (let column = 1; column < columns; column++) {
       const next =
         table[row][column - 1] - Math.random() * table[row][column - 1] / 10
-      table[row].push(next.toFixed(3))
+      table[row].push(next.toFixed(precision + 2))
     }
   }
 
