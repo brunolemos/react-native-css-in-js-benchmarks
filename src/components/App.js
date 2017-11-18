@@ -1,5 +1,11 @@
 import React from 'react'
-import { ActivityIndicator, Platform, StyleSheet, View } from 'react-native'
+import {
+  ActivityIndicator,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  View,
+} from 'react-native'
 
 import * as colors from '../utils/colors'
 import { getTableSize, getUniqueSize } from '../utils/helpers'
@@ -138,6 +144,8 @@ export default class App extends React.PureComponent {
 
     return (
       <View style={styles.container}>
+        {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
+
         <View style={styles.innerContainer}>
           <MessageRow backgroundColor={colors.white} bold color={colors.black}>
             {(TableComponent
