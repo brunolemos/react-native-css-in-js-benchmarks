@@ -13,6 +13,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "glamorous-native": "^1.2.0",
     "prop-types": "^15.6.0",
     "react": "16.0.0",
     "react-native": "0.50.3",

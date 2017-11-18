@@ -10,11 +10,17 @@ import MessageRow from './common/MessageRow'
 import Picker from './common/Picker'
 
 // benchmarks
+import GlamorousInlineTable from './benchmarks/glamorous/inline'
+import GlamorousPropsTable from './benchmarks/glamorous/props'
+import GlamorousSimpleTable from './benchmarks/glamorous/simple'
 import StyledComponentsDecoupledCellTable from './benchmarks/styled-components/decoupled-cell'
 import StyledComponentsInlineTable from './benchmarks/styled-components/inline'
 import StyledComponentsSimpleTable from './benchmarks/styled-components/simple'
 
 const benchmarks = [
+  GlamorousInlineTable,
+  GlamorousPropsTable,
+  GlamorousSimpleTable,
   StyledComponentsDecoupledCellTable,
   StyledComponentsInlineTable,
   StyledComponentsSimpleTable,
