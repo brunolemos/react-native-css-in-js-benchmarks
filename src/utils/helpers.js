@@ -103,7 +103,7 @@ export function endMeasurement(
   performance.mark(`${prefix}endMeasurement${suffix}`)
   performance.measure(
     `${prefix}measurementResult${suffix}`,
-    `startMeasurement${suffix}`,
+    `${prefix}startMeasurement${suffix}`,
     `${prefix}endMeasurement${suffix}`,
   )
 
