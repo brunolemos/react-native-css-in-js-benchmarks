@@ -4,7 +4,7 @@
 
 ### Results
 
-See [RESULTS.MD](RESULTS.MD) for the benchmark results.
+See [RESULTS.md](RESULTS.md) for the benchmark results.
 
 
 ### Technique
