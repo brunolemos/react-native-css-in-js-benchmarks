@@ -27,7 +27,6 @@ const TableComponent = ({ table, ...props }) => (
         {row.map((value, columnIndex) => (
           <Cell
             key={`row-${rowIndex}-column-${columnIndex}`}
-            opacity={parseFloat(value)}
             style={{ backgroundColor: getCellColor(value) }}
           >
             <Text numberOfLines={1}>{toPercent(value)}</Text>
