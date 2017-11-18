@@ -26,7 +26,7 @@ Know any other? Please open an [issue](https://github.com/brunolemos/react-nativ
 
 ### Inspiration
 
-The idea and some code pieces are heavily inspired by [A-gambit/CSS-IN-JS-Benchmarks](https://github.com/), which benchmarks were made for React Web.
+The idea and some code pieces are heavily inspired by [A-gambit/CSS-IN-JS-Benchmarks](https://github.com/A-gambit/CSS-IN-JS-Benchmarks), which benchmarks were made for React Web.
 
 
 ### Author
