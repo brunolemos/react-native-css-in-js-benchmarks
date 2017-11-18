@@ -1,4 +1,4 @@
-package com.react_native_css_in_js_benchmarks;
+package org.brunolemos.react-native-css-in-js-benchmarks;
 
 import com.facebook.react.ReactActivity;
 
