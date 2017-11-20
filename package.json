@@ -3,14 +3,17 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "detox": "npm run test:e2e:debug",
     "format": "npm run lint:fix && npm run prettier",
-    "lint": "eslint '{.,src/**,__tests__/**}/*.js'",
+    "lint": "eslint '{.,__tests__/**,e2e/**,src/**}/*.js'",
     "lint:fix": "npm run lint -- --fix",
     "precommit": "lint-staged",
-    "prettier": "npm run prettier:options -- --write '{.,src/**,__tests__/**}/*.js'",
+    "prettier": "npm run prettier:options -- --write '{.,__tests__/**,e2e/**,src/**}/*.js'",
     "prettier:options": "prettier --no-semi --trailing-comma all --single-quote",
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "test:e2e:debug": "detox test -c ios.sim.debug",
+    "test:e2e:build": "detox build"
   },
   "dependencies": {
     "fela": "^6.0.5",
@@ -29,6 +32,7 @@
     "babel-eslint": "^8.0.2",
     "babel-jest": "21.2.0",
     "babel-preset-react-native": "4.0.0",
+    "detox": "^5.10.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.7.0",
@@ -46,13 +50,19 @@
   },
   "jest": {
     "preset": "react-native",
+    "verbose": true,
+    "transformIgnorePatterns": [
+      "node_modules/(?!detox*)/",
+      "node_modules/(?!glamorous-native*)/"
+    ],
     "moduleFileExtensions": [
       "js"
     ],
     "moduleDirectories": [
       "node_modules"
     ],
-    "testRegex": "(src/|).*\\.test\\.js$"
+    "setupTestFrameworkScriptFile": "./e2e/init.js",
+    "testRegex": "(__tests__/|src/|).*\\.(spec|test)\\.js$"
   },
   "lint-staged": {
     "*.js": [
@@ -61,5 +71,16 @@
       "git add",
       "jest --bail --findRelatedTests"
     ]
+  },
+  "detox": {
+    "runner": "jest",
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/react_native_css_in_js_benchmarks.app",
+        "build": "xcodebuild -project ios/react_native_css_in_js_benchmarks.xcodeproj -scheme react_native_css_in_js_benchmarks -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone 8"
+      }
+    }
   }
 }

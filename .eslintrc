@@ -2,14 +2,13 @@
   "parser": "babel-eslint",
   "extends": ["airbnb", "plugin:react/recommended", "prettier", "prettier/react"],
   "env": {
-    "es6": true,
-    "jest": true
+    "es6": true
   },
   "globals": {
     "__DEV__": true,
     "performance": true
   },
-  "plugins": ["babel", "import", "react", "react-native", "prettier"],
+  "plugins": ["babel", "import", "react", "react-native", "prettier", "detox"],
   "parserOptions": {
     "ecmaVersion": 6,
     "ecmaFeatures": {

@@ -190,18 +190,24 @@ export default class App extends React.PureComponent {
             ).toFixed(2)}ms`}`}</MessageRow>
           </MessageRow>
 
-          <View style={styles.buttonsContainer}>
+          <View style={styles.buttonsContainer} testID="runButtonContainer">
             <Button
               containerStyle={{ marginBottom: 10 }}
               disabled={!TableComponent}
               loading={running && !loading}
               onPress={this.handleRunButtonPress}
+              testID="runButton"
             >
               Run again
             </Button>
 
             {Platform.OS === 'ios' && (
-              <Button dark onPress={this.handleChangeLibButtonPress} outline>
+              <Button
+                dark
+                onPress={this.handleChangeLibButtonPress}
+                outline
+                testID="changeCSSLibButton"
+              >
                 {TableComponent
                   ? 'Change CSS in JS lib'
                   : 'Select CSS in JS lib'}
