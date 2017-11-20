@@ -17,9 +17,10 @@ See [RESULTS.md](RESULTS.md) for the benchmark results.
 
 ### Libs
 
-- [styled-components](https://github.com/styled-components/styled-components)
-- [glamorous-native](https://github.com/robinpowered/glamorous-native)
 - [fela-native](https://github.com/rofrischmann/fela/tree/master/packages/fela-native)
+- [glamorous-native](https://github.com/robinpowered/glamorous-native)
+- [react-native](https://github.com/facebook/react-native)
+- [styled-components](https://github.com/styled-components/styled-components)
 
 Know any other? Please open an [issue](https://github.com/brunolemos/react-native-css-in-js-benchmarks/issues) or, preferrably, a [pull request](https://github.com/brunolemos/react-native-css-in-js-benchmarks/pulls) :)
 
