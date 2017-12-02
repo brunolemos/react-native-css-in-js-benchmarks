@@ -74,6 +74,7 @@ export default class Picker extends React.Component {
             key={`picker-item-${key}`}
             label={label}
             value={key}
+            accessibilityLabel={label}
           />
         ))}
       </AndroidPicker>

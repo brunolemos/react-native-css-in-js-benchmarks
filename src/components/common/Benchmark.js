@@ -106,6 +106,8 @@ export default class Benchmark extends React.PureComponent {
     const { table } = this.state
     const { TableComponent } = this.props
 
-    return <TableComponent table={table} />
+    if (!TableComponent) return null
+
+    return <TableComponent table={table} testID="benchmarkTable" />
   }
 }

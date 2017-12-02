@@ -4,41 +4,19 @@ import {
   Platform,
   StatusBar,
   StyleSheet,
+  Text,
   View,
 } from 'react-native'
 
 import * as colors from '../utils/colors'
-import { getTableSize, getUniqueSize } from '../utils/helpers'
-
 import Benchmark from './common/Benchmark'
 import Button from './common/Button'
-import MessageRow from './common/MessageRow'
+import MessageRow, { styles as messageRowStyles } from './common/MessageRow'
 import Picker from './common/Picker'
+import { benchmarks } from './benchmarks'
+import { getTableSize, getUniqueSize } from '../utils/helpers'
 
-// benchmarks
-import FelaInlineTable from './benchmarks/fela/inline'
-import FelaSimpleTable from './benchmarks/fela/simple'
-import GlamorousInlineTable from './benchmarks/glamorous/inline'
-import GlamorousPropsTable from './benchmarks/glamorous/props'
-import GlamorousSimpleTable from './benchmarks/glamorous/simple'
-import ReactNativeInlineOnlyTable from './benchmarks/react-native/inline-only'
-import ReactNativeStyleSheetTable from './benchmarks/react-native/stylesheet'
-import StyledComponentsDecoupledCellTable from './benchmarks/styled-components/decoupled-cell'
-import StyledComponentsInlineTable from './benchmarks/styled-components/inline'
-import StyledComponentsSimpleTable from './benchmarks/styled-components/simple'
-
-const benchmarks = [
-  FelaInlineTable,
-  FelaSimpleTable,
-  GlamorousInlineTable,
-  GlamorousPropsTable,
-  GlamorousSimpleTable,
-  ReactNativeInlineOnlyTable,
-  ReactNativeStyleSheetTable,
-  StyledComponentsDecoupledCellTable,
-  StyledComponentsInlineTable,
-  StyledComponentsSimpleTable,
-].map(benchmark => ({
+export const benchmarksPickerData = benchmarks.map(benchmark => ({
   key: benchmark.key,
   label: benchmark.title,
   value: { TableComponent: benchmark },
@@ -157,9 +135,17 @@ export default class App extends React.PureComponent {
           </MessageRow>
 
           {TableComponent && (
-            <MessageRow>{`${getUniqueSize(
-              table,
-            )} unique cells in ${getTableSize(table)}`}</MessageRow>
+            <MessageRow>
+              <Text style={messageRowStyles.text}>
+                <Text testID="uniqueTableCellsText">{`${getUniqueSize(
+                  table,
+                )}`}</Text>
+                {' unique cells in '}
+                <Text testID="totalTableCellsText">{`${getTableSize(
+                  table,
+                )}`}</Text>
+              </Text>
+            </MessageRow>
           )}
 
           <View style={styles.tableContainer}>
@@ -181,16 +167,30 @@ export default class App extends React.PureComponent {
           </View>
 
           <MessageRow containerStyle={{ flexDirection: 'row' }}>
-            <MessageRow containerStyle={{ flex: 1 }}>{`Mount time: ${(
-              mountTime || 0
-            ).toFixed(2)}ms`}</MessageRow>
+            <MessageRow containerStyle={{ flex: 1 }}>
+              <Text style={messageRowStyles.text}>
+                Mount time:{' '}
+                <Text testID="mountTimeText">{`${(mountTime || 0).toFixed(
+                  2,
+                )}ms`}</Text>
+              </Text>
+            </MessageRow>
 
-            <MessageRow containerStyle={{ flex: 1 }}>{`Rerender time: ${`${(
-              renderTime || 0
-            ).toFixed(2)}ms`}`}</MessageRow>
+            <MessageRow containerStyle={{ flex: 1 }}>
+              <Text style={messageRowStyles.text}>
+                Rerender time:{' '}
+                <Text testID="rerenderTimeText">{`${(renderTime || 0).toFixed(
+                  2,
+                )}ms`}</Text>
+              </Text>
+            </MessageRow>
           </MessageRow>
 
-          <View style={styles.buttonsContainer} testID="runButtonContainer">
+          {Boolean(renderTime > 0 && !running && !loading) && (
+            <View testID="benchmarkHasFinishedRunning" />
+          )}
+
+          <View style={styles.buttonsContainer}>
             <Button
               containerStyle={{ marginBottom: 10 }}
               disabled={!TableComponent}
@@ -216,9 +216,10 @@ export default class App extends React.PureComponent {
 
             <Picker
               ref={this.getPickerRef}
-              data={benchmarks}
+              data={benchmarksPickerData}
               initialSelectedKey={null}
               onChange={this.handleLibChange}
+              testID="libsPicker"
             />
           </View>
         </View>

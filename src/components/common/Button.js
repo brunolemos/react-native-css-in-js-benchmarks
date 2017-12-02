@@ -103,7 +103,7 @@ Button.propTypes = {
   loading: PropTypes.bool,
   onPress: PropTypes.func,
   outline: PropTypes.bool,
-  textStyle: Text.propTypes.style,
+  textStyle: (Text.propTypes || {}).style,
   touchableStyle: ViewPropTypes.style,
 }
 
