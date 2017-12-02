@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, ViewPropTypes } from 'react-native'
 
 import * as colors from '../../utils/colors'
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
     paddingVertical: 4,
@@ -55,7 +55,7 @@ MessageRow.propTypes = {
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   color: PropTypes.string,
   containerStyle: ViewPropTypes.style,
-  textStyle: Text.propTypes.style,
+  textStyle: (Text.propTypes || {}).style,
 }
 
 export default MessageRow

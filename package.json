@@ -3,14 +3,19 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "detox": "npm run test:e2e:debug",
     "format": "npm run lint:fix && npm run prettier",
-    "lint": "eslint '{.,src/**,__tests__/**}/*.js'",
+    "lint": "eslint '{.,__tests__/**,e2e/**,src/**}/*.js'",
     "lint:fix": "npm run lint -- --fix",
     "precommit": "lint-staged",
-    "prettier": "npm run prettier:options -- --write '{.,src/**,__tests__/**}/*.js'",
+    "prettier": "npm run prettier:options -- --write '{.,__tests__/**,e2e/**,src/**}/*.js'",
     "prettier:options": "prettier --no-semi --trailing-comma all --single-quote",
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "test:e2e": "npm run test:e2e:release",
+    "test:e2e:build": "detox build",
+    "test:e2e:debug": "detox test -c ios.sim.debug",
+    "test:e2e:release": "detox test -c ios.sim.release"
   },
   "dependencies": {
     "fela": "^6.0.5",
@@ -29,10 +34,12 @@
     "babel-eslint": "^8.0.2",
     "babel-jest": "21.2.0",
     "babel-preset-react-native": "4.0.0",
+    "detox": "^6.0.2",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.7.0",
     "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-detox": "^1.0.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-prettier": "^2.3.1",
@@ -40,26 +47,56 @@
     "eslint-plugin-react-native": "^3.1.0",
     "husky": "^0.14.3",
     "jest": "21.2.1",
+    "jest-cli": "^21.2.1",
     "lint-staged": "^5.0.0",
     "prettier-eslint": "^8.2.2",
     "react-test-renderer": "16.0.0"
   },
   "jest": {
     "preset": "react-native",
+    "verbose": true,
+    "transformIgnorePatterns": [
+      "node_modules/(?!detox*)/",
+      "node_modules/(?!glamorous-native*)/"
+    ],
     "moduleFileExtensions": [
-      "js"
+      "js",
+      "android.js",
+      "ios.js"
     ],
     "moduleDirectories": [
       "node_modules"
     ],
-    "testRegex": "(src/|).*\\.test\\.js$"
+    "testRegex": "(__tests__/|src/|).*\\.(spec|test)\\.js$",
+    "testPathIgnorePatterns": [
+      "node_modules",
+      "e2e"
+    ]
   },
   "lint-staged": {
     "*.js": [
       "npm run prettier:options -- --write",
       "eslint --fix",
-      "git add",
-      "jest --bail --findRelatedTests"
+      "git add"
     ]
+  },
+  "detox": {
+    "specs": "e2e",
+    "test-runner": "jest",
+    "runner-config": "e2e/config.json",
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/react_native_css_in_js_benchmarks.app",
+        "build": "xcodebuild -project ios/react_native_css_in_js_benchmarks.xcodeproj -scheme react_native_css_in_js_benchmarks -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone X"
+      },
+      "ios.sim.release": {
+        "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/react_native_css_in_js_benchmarks.app",
+        "build": "xcodebuild -project ios/react_native_css_in_js_benchmarks.xcodeproj -scheme react_native_css_in_js_benchmarks -configuration Release -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone X"
+      }
+    }
   }
 }

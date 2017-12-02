@@ -1,0 +1,8 @@
+{
+  "setupTestFrameworkScriptFile": "./init.js",
+  "moduleFileExtensions": [
+    "js",
+    "android.js",
+    "ios.js"
+  ]
+}
