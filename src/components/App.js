@@ -2,6 +2,7 @@ import React from 'react'
 import {
   ActivityIndicator,
   Platform,
+  SafeAreaView,
   StatusBar,
   StyleSheet,
   View,
@@ -145,7 +146,7 @@ export default class App extends React.PureComponent {
     } = this.state
 
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
 
         <View style={styles.innerContainer}>
@@ -216,7 +217,7 @@ export default class App extends React.PureComponent {
             />
           </View>
         </View>
-      </View>
+      </SafeAreaView>
     )
   }
 }
