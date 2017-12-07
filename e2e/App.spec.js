@@ -36,8 +36,8 @@ describe('App', () => {
     it(`should run benchmark for ${benchmarkPickerData.label}`, async () => {
       await device.reloadReactNative()
 
-      // Tap on each picker item until we have the one we want.
-      // This is an workaround for detox not scrollTo on a Picker component.
+      // Tap on each picker item until we get to the one we want.
+      // This is an workaround for detox not supporting scrollTo on a Picker component.
       // Follow issue: https://github.com/wix/detox/issues/308
       // eslint-disable-next-line no-await-in-loop
       for (let i = 0; i <= index; i++) await getPickerItemElement(i).tap()
@@ -49,8 +49,8 @@ describe('App', () => {
         .withTimeout(30000)
 
       // TODO: Get benchmark results from rerenderTimeText element.
-      // Currently not support by detox.
-      // Follow issue: https://github.com/brunolemos/react-native-css-in-js-benchmarks
+      // Currently not supported by detox.
+      // Follow issue: https://github.com/wix/detox/issues/445
       // console.log(element(by.id('rerenderTimeText')))
     })
   })
