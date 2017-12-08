@@ -1,5 +1,6 @@
 // all benchmarks
 import FelaInlineTable from './fela/inline'
+import FelaPrimitivesTable from './fela/primitives'
 import FelaSimpleTable from './fela/simple'
 import GlamorousInlineTable from './glamorous/inline'
 import GlamorousPropsTable from './glamorous/props'
@@ -12,6 +13,7 @@ import StyledComponentsSimpleTable from './styled-components/simple'
 
 export const benchmarks = [
   FelaInlineTable,
+  FelaPrimitivesTable,
   FelaSimpleTable,
   GlamorousInlineTable,
   GlamorousPropsTable,
