@@ -1,8 +1,13 @@
 {
-  "setupTestFrameworkScriptFile": "./init.js",
+  "preset": "react-native",
+  "rootDir": "../",
+  "setupTestFrameworkScriptFile": "./e2e/init.js",
   "moduleFileExtensions": [
     "js",
     "android.js",
     "ios.js"
+  ],
+  "transformIgnorePatterns": [
+    "node_modules/(?!detox*|react-native)"
   ]
 }

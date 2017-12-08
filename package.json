@@ -11,13 +11,13 @@
     "prettier": "npm run prettier:options -- --write '{.,__tests__/**,e2e/**,src/**}/*.js'",
     "prettier:options": "prettier --no-semi --trailing-comma all --single-quote",
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest",
-    "test:e2e": "npm run test:e2e:release",
-    "test:e2e:build": "npm run test:e2e:build:release",
-    "test:e2e:build:debug": "detox build -c ios.sim.debug",
-    "test:e2e:build:release": "detox build -c ios.sim.release",
-    "test:e2e:debug": "detox test -c ios.sim.debug",
-    "test:e2e:release": "detox test -c ios.sim.release"
+    "test": "NODE_ENV=test jest",
+    "test:e2e": "NODE_ENV=test npm run test:e2e:release",
+    "test:e2e:build": "NODE_ENV=test npm run test:e2e:build:release",
+    "test:e2e:build:debug": "NODE_ENV=test detox build -c ios.sim.debug",
+    "test:e2e:build:release": "NODE_ENV=test detox build -c ios.sim.release",
+    "test:e2e:debug": "NODE_ENV=test detox test -c ios.sim.debug",
+    "test:e2e:release": "NODE_ENV=test detox test -c ios.sim.release"
   },
   "dependencies": {
     "fela": "^6.0.5",
@@ -56,11 +56,6 @@
   },
   "jest": {
     "preset": "react-native",
-    "verbose": true,
-    "transformIgnorePatterns": [
-      "node_modules/(?!detox*)/",
-      "node_modules/(?!glamorous-native*)/"
-    ],
     "moduleFileExtensions": [
       "js",
       "android.js",
