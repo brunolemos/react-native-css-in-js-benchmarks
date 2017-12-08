@@ -131,6 +131,11 @@ export default class App extends React.PureComponent {
     return (results && JSON.parse(results)) || this.state.results || {}
   }
 
+  clearResults = async () => {
+    this.setState({ results: {} })
+    return AsyncStorage.setItem('results', '{}')
+  }
+
   persistResults = async () =>
     AsyncStorage.setItem('results', JSON.stringify(this.state.results || {}))
 
@@ -164,7 +169,10 @@ export default class App extends React.PureComponent {
       '\n',
     )}`
 
-    Alert.alert('Results', resultsStr)
+    Alert.alert('Results', resultsStr, [
+      { text: 'OK', onPress: () => {} },
+      { text: 'Reset', onPress: this.clearResults, style: 'destructive' },
+    ])
   }
 
   render() {
