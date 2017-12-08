@@ -13,7 +13,9 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "test:e2e": "npm run test:e2e:release",
-    "test:e2e:build": "detox build",
+    "test:e2e:build": "npm run test:e2e:build:release",
+    "test:e2e:build:debug": "detox build -c ios.sim.debug",
+    "test:e2e:build:release": "detox build -c ios.sim.release",
     "test:e2e:debug": "detox test -c ios.sim.debug",
     "test:e2e:release": "detox test -c ios.sim.release"
   },
