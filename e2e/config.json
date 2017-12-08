@@ -8,6 +8,6 @@
     "ios.js"
   ],
   "transformIgnorePatterns": [
-    "node_modules/(?!detox*|react-native)"
+    "node_modules/(?!detox*|glamorous-native|react-native)"
   ]
 }
