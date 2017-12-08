@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "detox": "npm run test:e2e:debug",
     "format": "npm run lint:fix && npm run prettier",
     "lint": "eslint '{.,__tests__/**,e2e/**,src/**}/*.js'",
     "lint:fix": "npm run lint -- --fix",

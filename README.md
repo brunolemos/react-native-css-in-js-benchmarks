@@ -29,7 +29,21 @@ Know any other? Please open an [issue](https://github.com/brunolemos/react-nativ
 
 The idea and some code pieces are heavily inspired by [A-gambit/CSS-IN-JS-Benchmarks](https://github.com/A-gambit/CSS-IN-JS-Benchmarks), which benchmarks were made for React Web.
 
+### How to run
+
+- Run `git clone git@github.com:brunolemos/react-native-css-in-js-benchmarks.git`
+- Run `yarn` or `npm install`
+
+#### Manually
+- Run `react-native run-ios`
+- Use the app as usual
+
+#### Automatically
+- Run `npm run test:e2e:build`
+- Run `npm run test:e2e`
+
+[Detox](https://github.com/wix/detox) will run all benchmarks and show the results at the end.
 
 ### Author
 
-Bruno Lemos ([@brunolemos](https://twitter.com/brunolemos) on twitter)
+Bruno Lemos (follow [@brunolemos](https://twitter.com/brunolemos) on twitter)
