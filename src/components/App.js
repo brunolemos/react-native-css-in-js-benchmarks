@@ -155,8 +155,8 @@ export default class App extends React.PureComponent {
     const results = []
 
     Object.entries(this.state.results).forEach(([key, libResults]) => {
-      const mountTime = parseFloat(libResults[mountTimeKey] || 0).toFixed(2)
-      const renderTime = parseFloat(libResults[renderTimeKey] || 0).toFixed(2)
+      const mountTime = Math.round(libResults[mountTimeKey] || 0)
+      const renderTime = Math.round(libResults[renderTimeKey] || 0)
 
       results.push({ key, mountTime, renderTime })
     })
@@ -234,8 +234,8 @@ export default class App extends React.PureComponent {
             <MessageRow containerStyle={{ flex: 1 }}>
               <Text style={messageRowStyles.text}>
                 Mount time:{' '}
-                <Text testID="mountTimeText">{`${(mountTime || 0).toFixed(
-                  2,
+                <Text testID="mountTimeText">{`${Math.round(
+                  mountTime || 0,
                 )}ms`}</Text>
               </Text>
             </MessageRow>
@@ -243,8 +243,8 @@ export default class App extends React.PureComponent {
             <MessageRow containerStyle={{ flex: 1 }}>
               <Text style={messageRowStyles.text}>
                 Rerender time:{' '}
-                <Text testID="rerenderTimeText">{`${(renderTime || 0).toFixed(
-                  2,
+                <Text testID="rerenderTimeText">{`${Math.round(
+                  renderTime || 0,
                 )}ms`}</Text>
               </Text>
             </MessageRow>
