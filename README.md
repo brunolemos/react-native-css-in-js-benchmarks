@@ -13,7 +13,7 @@ See [RESULTS.md](RESULTS.md) for the benchmark results.
 - Multiple implementations for each lib with small variations, e.g. using inline styles or not
 - Multiple rerenders are executed per test and the result is their average render time
 
-<img alt="React Native running CSS in JS benchmarks on iOS simulator" src="https://user-images.githubusercontent.com/619186/32977849-f75936a6-cc1c-11e7-92fc-10d31e0c4b67.gif" height="600" />
+<img alt="React Native running CSS in JS benchmarks on iOS simulator" src="https://user-images.githubusercontent.com/619186/33778451-cb70f6dc-dc2f-11e7-91b0-ebc78ea2644a.gif" height="600" />
 
 ### Libs
 
