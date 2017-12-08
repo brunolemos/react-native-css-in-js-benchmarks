@@ -15,6 +15,14 @@ jest.mock('Text')
 jest.mock('View')
 jest.mock('ViewPropTypes')
 
+beforeAll(async () => {
+  if (typeof device === 'undefined') {
+    await detox.init(config)
+  }
+
+  await device.reloadReactNative()
+})
+
 beforeEach(async () => {
   if (typeof device === 'undefined') {
     await detox.init(config)
