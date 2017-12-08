@@ -20,6 +20,10 @@ beforeAll(async () => {
     await detox.init(config)
   }
 
+  // // clear async storage that contains old benchmark results
+  // await device.uninstallApp()
+  // await device.installApp()
+
   await device.reloadReactNative()
 })
 

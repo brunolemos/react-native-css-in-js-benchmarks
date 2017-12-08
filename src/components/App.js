@@ -1,6 +1,8 @@
 import React from 'react'
 import {
   ActivityIndicator,
+  Alert,
+  AsyncStorage,
   Platform,
   SafeAreaView,
   StatusBar,
@@ -46,14 +48,25 @@ const styles = StyleSheet.create({
   },
 })
 
+const mountTimeKey = 'mountTime'
+const renderTimeKey = 'renderTime'
+
 export default class App extends React.PureComponent {
   state = {
     TableComponent: null,
     loading: false,
     mountTime: null,
     renderTime: null,
+    results: {},
     running: false,
     table: [],
+  }
+
+  async componentWillMount() {
+    const results = await this.rehydrateResults()
+    this.setState(state => ({
+      results: results || state.results,
+    }))
   }
 
   componentDidMount() {
@@ -75,10 +88,10 @@ export default class App extends React.PureComponent {
 
   handleGenerateTable = table => this.setState({ table })
 
-  handleGetMountTime = mountTime => this.setState({ mountTime })
+  handleGetMountTime = mountTime => this.saveResults(mountTimeKey, mountTime)
 
   handleGetRenderTime = renderTime =>
-    this.setState({ renderTime, running: false })
+    this.saveResults(renderTimeKey, renderTime, { running: false })
 
   handleRunButtonPress = () => {
     this.setState({ running: true }, () => {
@@ -113,12 +126,54 @@ export default class App extends React.PureComponent {
     )
   }
 
+  rehydrateResults = async () => {
+    const results = await AsyncStorage.getItem('results')
+    return (results && JSON.parse(results)) || this.state.results || {}
+  }
+
+  persistResults = async () =>
+    AsyncStorage.setItem('results', JSON.stringify(this.state.results || {}))
+
+  saveResults = (key, value, otherState = {}) => {
+    this.setState(state => {
+      const results = { ...(state.results || {}) }
+      const libResults = { ...(results[state.TableComponent.key] || {}) }
+
+      libResults[key] = value
+      results[state.TableComponent.key] = libResults
+
+      return { [key]: value, results, ...otherState }
+    }, this.persistResults)
+  }
+
+  handleShowResultsButtonPress = () => {
+    const results = []
+
+    Object.entries(this.state.results).forEach(([key, libResults]) => {
+      const mountTime = parseFloat(libResults[mountTimeKey] || 0).toFixed(2)
+      const renderTime = parseFloat(libResults[renderTimeKey] || 0).toFixed(2)
+
+      results.push({ key, mountTime, renderTime })
+    })
+
+    const orderedResults = results
+      .sort((a, b) => a.renderTime - b.renderTime)
+      .map(result => `${result.key}: ${result.mountTime}, ${result.renderTime}`)
+
+    const resultsStr = `[LIB]: [MOUNT TIME], [RENDER TIME]\n${orderedResults.join(
+      '\n',
+    )}`
+
+    Alert.alert('Results', resultsStr)
+  }
+
   render() {
     const {
       TableComponent,
       loading,
       mountTime,
       renderTime,
+      results,
       running,
       table,
     } = this.state
@@ -200,6 +255,17 @@ export default class App extends React.PureComponent {
               testID="runButton"
             >
               Run again
+            </Button>
+
+            <Button
+              containerStyle={{ marginBottom: 10 }}
+              dark
+              disabled={running || loading || !Object.keys(results).length}
+              onPress={this.handleShowResultsButtonPress}
+              outline
+              testID="showResultsButton"
+            >
+              Show Results
             </Button>
 
             {Platform.OS === 'ios' && (

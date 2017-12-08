@@ -2,8 +2,7 @@
 
 import { benchmarksPickerData } from '../src/components/App'
 
-const getPickerItemElement = index =>
-  element(by.text(benchmarksPickerData[index].label)).atIndex(1)
+const getPickerItemElement = index => element(by.text(benchmarksPickerData[index].label)).atIndex(1)
 
 describe('App', () => {
   it('should close the initially opened picker', async () => {
@@ -47,11 +46,13 @@ describe('App', () => {
       await waitFor(element(by.id('benchmarkHasFinishedRunning')))
         .toExist()
         .withTimeout(30000)
-
-      // TODO: Get benchmark results from rerenderTimeText element.
-      // Currently not supported by detox.
-      // Follow issue: https://github.com/wix/detox/issues/445
-      // console.log(element(by.id('rerenderTimeText')))
     })
+  })
+
+  // TODO: Get the results from the app and update RESULTS.md file automatically.
+  // Currently not support by detox.
+  // Follow issue: https://github.com/brunolemos/react-native-css-in-js-benchmarks
+  it('should show the results', async () => {
+    await element(by.id('showResultsButton')).tap()
   })
 })
