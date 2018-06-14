@@ -39,6 +39,9 @@ The idea and some code pieces are heavily inspired by [A-gambit/CSS-IN-JS-Benchm
 - Use the app as usual
 
 #### Automatically
+- Run `brew tap wix/brew`
+- Run `brew install applesimutils`
+- Start the iPhone X Simulator
 - Run `npm run test:e2e:build`
 - Run `npm run test:e2e`
 
