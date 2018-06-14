@@ -6,11 +6,6 @@ import React from 'react'
 import { Picker as AndroidPicker } from 'react-native'
 
 export default class Picker extends React.Component {
-  static defaultProps = {
-    noneItemLabel: 'None',
-    showNoneItem: true,
-  }
-
   static propTypes = {
     ...AndroidPicker.propTypes,
     data: PropTypes.arrayOf(
@@ -23,6 +18,11 @@ export default class Picker extends React.Component {
     noneItemLabel: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     showNoneItem: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    noneItemLabel: 'None',
+    showNoneItem: true,
   }
 
   state = {

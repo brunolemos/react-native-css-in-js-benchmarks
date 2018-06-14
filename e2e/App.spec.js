@@ -2,7 +2,8 @@
 
 import { benchmarksPickerData } from '../src/components/App'
 
-const getPickerItemElement = index => element(by.text(benchmarksPickerData[index].label)).atIndex(1)
+const getPickerItemElement = index =>
+  element(by.text(benchmarksPickerData[index].label)).atIndex(1)
 
 describe('App', () => {
   it('should close the initially opened picker', async () => {

@@ -38,12 +38,6 @@ const styles = StyleSheet.create({
 })
 
 export default class Picker extends React.Component {
-  static defaultProps = {
-    initialSelectedKey: null,
-    noneItemLabel: 'None',
-    showNoneItem: true,
-  }
-
   static propTypes = {
     ...IOSPicker.propTypes,
     data: PropTypes.arrayOf(
@@ -57,6 +51,12 @@ export default class Picker extends React.Component {
     noneItemLabel: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     showNoneItem: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    initialSelectedKey: null,
+    noneItemLabel: 'None',
+    showNoneItem: true,
   }
 
   state = {
